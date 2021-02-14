@@ -12,7 +12,7 @@ Options:
 
 ## Description
 
-If your computer isn't brand new, there's anoying lag period when entering/exiting fullscreen on a YouTube video. On my machine, it's normally ~2 seconds; but with a large playlist expanded, it gets up to ~3 seconds. This extension reduces the transition time to under a second.
+If your computer isn't brand new, there's an annoying lag period when entering/exiting fullscreen on a YouTube video. On my machine, it's normally ~2 seconds; but with a large playlist expanded, it gets up to ~3 seconds. This extension reduces the transition time to under a second.
 
 Technical detail:
 
