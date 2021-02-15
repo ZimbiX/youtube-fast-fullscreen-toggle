@@ -14,6 +14,8 @@ Options:
   + Enable the Developer mode setting in the top-right
   + Drag in the file
 
+Note that Firefox doesn't seem to have the same issue as Chrome; so this extension doesn't have any effect in Firefox.
+
 ## Description
 
 If your computer isn't brand new, there's an annoying lag period when entering/exiting fullscreen on a YouTube video. On my machine, it's normally ~2 seconds; but with a large playlist expanded, it gets up to ~3 seconds. This extension reduces the transition time to under a second.
