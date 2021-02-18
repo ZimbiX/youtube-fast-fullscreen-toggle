@@ -14,7 +14,7 @@ Options:
   + Enable the Developer mode setting in the top-right
   + Drag in the file
 
-Note that Firefox doesn't seem to have the same issue as Chrome; so this extension doesn't have any effect in Firefox.
+Note that Firefox doesn't seem to have the same issue as Chrome; so in Firefox the improvement is barely noticeable.
 
 ## Description
 
