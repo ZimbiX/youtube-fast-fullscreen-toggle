@@ -22,7 +22,9 @@
 
     const fastToggleFullScreen = () => {
         hideFluff()
-        setTimeout(showFluff, 40)
+        setTimeout(() => {
+            setTimeout(showFluff, 10)
+        }, 10)
     }
 
     const isWritingText = (e) => (
