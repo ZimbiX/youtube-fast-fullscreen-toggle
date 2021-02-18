@@ -1,7 +1,7 @@
 {
   "name": "YouTube Fast Fullscreen Toggle",
   "description": "Avoid the lag when entering/exiting fullscreen on a YouTube video - by hiding the heavy fluff while transitioning",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "manifest_version": 3,
   "icons": {
     "128": "icon.png"
