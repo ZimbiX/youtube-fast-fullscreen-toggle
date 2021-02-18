@@ -11,7 +11,7 @@
 (function() {
     'use strict';
 
-    const fluff = ['#secondary', '#info', '#meta', '#comments', '#masthead-container', '#speedyg']
+    const fluff = ['#secondary-inner', '#info', '#meta', '#comments', '#masthead-container', '#speedyg']
 
     const setFluffDisplay = (value) => {
         fluff.forEach(sel => { document.querySelector(sel).style.display = value })
