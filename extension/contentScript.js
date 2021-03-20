@@ -21,7 +21,10 @@
     const hideFluff = () => setFluffDisplay('none')
     const showFluff = () => setFluffDisplay('')
 
-    const checkIfDirectionIsLeavingFullscreen = () => document.querySelector('ytd-watch-flexy').fullscreen
+    const isInFullscreen = () => !!document.fullscreenElement
+
+    // Opposite since we will be checking this only after it's changed by YouTube
+    const checkIfDirectionIsLeavingFullscreen = () => !isInFullscreen()
 
     const isFinishedLeavingFullscreen = () => {
         const video = document.querySelector('ytd-player')
@@ -55,9 +58,13 @@
 
     const fastToggleFullScreen = () => {
         hideFluff()
-        const directionIsLeavingFullscreen = checkIfDirectionIsLeavingFullscreen()
-        console.log(`[YT-FFT] ${directionIsLeavingFullscreen ? 'Leaving' : 'Entering'} fullscreen; fluff has been hidden`)
-        showFluffWhenReady(directionIsLeavingFullscreen, new Date())
+        console.log('[YT-FFT] Fluff hidden')
+        // Wait until YouTube's event handler has executed. This is required since the order of event handler execution is not guaranteed, and we need to be able to reliably detect the transition direction
+        setTimeout(() => {
+            const directionIsLeavingFullscreen = checkIfDirectionIsLeavingFullscreen()
+            console.log(`[YT-FFT] Waiting until ${directionIsLeavingFullscreen ? 'leaving' : 'entering'} fullscreen transition has finished`)
+            showFluffWhenReady(directionIsLeavingFullscreen, new Date())
+        }, 10)
     }
 
     const isWritingText = (e) => (
@@ -65,18 +72,22 @@
         e.path[0].id == 'contenteditable-root'
     )
 
-    document.querySelector('.ytp-fullscreen-button').addEventListener("click", e => {
-        fastToggleFullScreen()
-    })
-
-    document.querySelector('#player').addEventListener('dblclick', e => {
-        fastToggleFullScreen()
-    })
-
-    document.addEventListener("keydown", e => {
-        if (e.code == 'KeyF' && !isWritingText(e)) {
-            console.log(e)
+    const addEventListeners = () => {
+        document.querySelector('.ytp-fullscreen-button').addEventListener("click", e => {
             fastToggleFullScreen()
-        }
-    })
+        })
+
+        document.querySelector('#player').addEventListener('dblclick', e => {
+            fastToggleFullScreen()
+        })
+
+        document.addEventListener("keydown", e => {
+            if (e.code == 'KeyF' && !isWritingText(e)) {
+                console.log(e)
+                fastToggleFullScreen()
+            }
+        })
+    }
+
+    addEventListeners()
 })();
