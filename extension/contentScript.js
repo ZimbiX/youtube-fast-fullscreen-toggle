@@ -27,6 +27,7 @@
         setFluffDisplay('')
     }
 
+    // const isInFullscreen = () => !!document.querySelector('ytd-watch-flexy').fullscreen
     const isInFullscreen = () => !!document.fullscreenElement
 
     // Opposite since we will be checking this only after it's changed by YouTube
@@ -57,14 +58,35 @@
 
     const timedOut = (startedAt) => new Date() - startedAt >= 2000
 
+    let currentTransitionStartedAt;
+
+    const abortOldTransition = (startedAt) => {
+        if (startedAt != currentTransitionStartedAt) {
+            console.log(`[YT-FFT] Cancelling waiting on previous transition`)
+            return true
+        }
+    }
+
+    const showFluffForTransition = (startedAt) => {
+        showFluff()
+    }
+
     const showFluffWhenReady = (directionIsLeavingFullscreen, startedAt) => {
+        if (abortOldTransition(startedAt)) { return }
         if (timedOut(startedAt)) {
             console.log(`[YT-FFT] Timed out detecting finish of ${directionIsLeavingFullscreen ? 'leaving' : 'entering'} fullscreen transition`)
             showFluff()
         } else if (transitionIsFinished(directionIsLeavingFullscreen)) {
             console.log(`[YT-FFT] Finished ${directionIsLeavingFullscreen ? 'leaving' : 'entering'} fullscreen transition`)
             // Delay a little after entering fullscreen for reliability, since delay before showing the fluff when entering fullscreen is not noticeable
-            directionIsLeavingFullscreen ? showFluff() : setTimeout(showFluff, 20)
+            if (directionIsLeavingFullscreen) {
+                showFluff()
+            } else {
+                setTimeout(() => {
+                    if (abortOldTransition(startedAt)) { return }
+                    showFluff()
+                }, 20)
+            }
         } else {
             setTimeout(() => showFluffWhenReady(directionIsLeavingFullscreen, startedAt), 10)
         }
@@ -72,11 +94,12 @@
 
     const fastToggleFullScreen = () => {
         hideFluff()
+        currentTransitionStartedAt = new Date()
         // Wait until YouTube's event handler has executed. This is required since the order of event handler execution is not guaranteed, and we need to be able to reliably detect the transition direction
         setTimeout(() => {
             const directionIsLeavingFullscreen = checkIfDirectionIsLeavingFullscreen()
             console.log(`[YT-FFT] Waiting until ${directionIsLeavingFullscreen ? 'leaving' : 'entering'} fullscreen transition has finished`)
-            showFluffWhenReady(directionIsLeavingFullscreen, new Date())
+            showFluffWhenReady(directionIsLeavingFullscreen, currentTransitionStartedAt)
         }, 10)
     }
 
