@@ -6,7 +6,7 @@ Avoids the ~3 second lag when entering/exiting fullscreen on a YouTube video - b
 
 Options:
 
-- From the [Chrome Web Store](https://chrome.google.com/webstore/detail/dggbkbndbcaknaeobfieifmdcncmpaba) (once it passes review)
+- From the [Chrome Web Store](https://chrome.google.com/webstore/detail/dggbkbndbcaknaeobfieifmdcncmpaba) (updates will be delayed a few days due to their review process)
 - Using [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) - [script](extension/contentScript.js)
 - Manually:
   + [Download the CRX file](https://github.com/ZimbiX/youtube-fast-fullscreen-toggle/releases/download/v2.2.0/youtube-fast-fullscreen-toggle-v2.2.0.crx)
