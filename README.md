@@ -2,6 +2,16 @@
 
 Avoids the ~3 second lag when entering/exiting fullscreen on a YouTube video - by hiding the heavy fluff while transitioning
 
+## Contents
+
+<!-- MarkdownTOC autolink=true -->
+
+- [Install](#install)
+- [Description](#description)
+- [Changelog](#changelog)
+
+<!-- /MarkdownTOC -->
+
 ## Install
 
 Options:
@@ -42,3 +52,7 @@ Before:
 After:
 
 ![after](demo/after.gif)
+
+## Changelog
+
+For the changelog, see [Releases](https://github.com/ZimbiX/youtube-fast-fullscreen-toggle/releases)
