@@ -1,0 +1,81 @@
+#!/bin/bash
+
+set -Eeuo pipefail
+
+cd "$(dirname "$0")"/..
+
+green='\e[32m'; blue='\e[36m'; red='\e[31m'; bold='\e[1m'; highlight='\e[1m\e[44;97m'; reset='\e[0m'
+coloured-arrow() { printf "$bold%b==> %s$reset\n" "$1" "$2"; }
+success() { coloured-arrow "$green" "$1"; }
+info() { coloured-arrow "$blue" "$1"; }
+act()  { coloured-arrow "$highlight" "$1"; }
+err() { coloured-arrow "$red" "$1"; exit 1; }
+
+version=${1-}
+
+[[ "$version" =~ ^[0-9]\.[0-9]\.[0-9]$ ]] || err "Invalid version number format"
+
+act "Presss Enter to start your editor to write a release description"
+
+read -r
+set -x
+touch /tmp/github-release-description
+"${EDITOR-vim}" /tmp/github-release-description
+
+{ info "Updating version in the source..."; } 2>/dev/null
+
+sed -i -E "s=^(// @version +)[0-9.]+$=\1${version}=" extension/contentScript.js
+sed -i -E "s=(^  \"version\": \")[0-9.]+(\")=\1${version}\2=" extension/manifest.json
+
+{ info "Building extension..."; } 2>/dev/null
+
+rm -f extension.crx
+google-chrome-stable --pack-extension=extension --pack-extension-key=youtube-fast-fullscreen-toggle.pem
+mv extension.crx "releases/youtube-fast-fullscreen-toggle-v${version}.crx"
+
+{ info "Zipping extension for Chrome Web Store..."; } 2>/dev/null
+
+rm -f extension.crx
+zip -r "releases/youtube-fast-fullscreen-toggle-v${version}.zip" extension
+
+{ info "Committing..."; } 2>/dev/null
+
+git add extension
+git commit -m "Update version to ${version}"
+git tag "v${version}"
+git show
+
+{ info "Pushing source version update commit..."; } 2>/dev/null
+
+git push origin "v${version}"
+
+{ info "Creating release..."; } 2>/dev/null
+
+gh release create "v${version}" -F /tmp/github-release-description
+rm -f /tmp/github-release-description
+
+{ info "Uploading release file..."; } 2>/dev/null
+
+gh release upload "v${version}" "releases/youtube-fast-fullscreen-toggle-v${version}.crx"
+
+{ info "Updating version in the readme download link..."; } 2>/dev/null
+
+sed -i -E "s=(releases/download/v)[0-9.]+(/youtube-fast-fullscreen-toggle-v)[0-9.]+(.crx)=\1${version}\2${version}\3=" README.md
+
+{ info "Committing new download link..."; } 2>/dev/null
+
+git add README.md
+git commit -m "Readme: Update download link for v${version}"
+git show
+
+{ info "Pushing new download link commit..."; } 2>/dev/null
+
+git push
+
+{ success "GitHub release published! =)"; } 2>/dev/null
+
+gh release view
+
+{ echo; } 2>/dev/null
+{ act "Now upload the zip file to the Chrome Web Store:"; } 2>/dev/null
+{ act "https://chrome.google.com/webstore/devconsole/6ce677b3-5e65-4cf3-9004-74e4c9fc8e7d/dggbkbndbcaknaeobfieifmdcncmpaba/edit/package"; } 2>/dev/null

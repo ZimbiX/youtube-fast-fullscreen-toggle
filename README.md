@@ -9,6 +9,7 @@ Avoids the ~3 second lag when entering/exiting fullscreen on a YouTube video - b
 - [Install](#install)
 - [Description](#description)
 - [Changelog](#changelog)
+- [Development](#development)
 
 <!-- /MarkdownTOC -->
 
@@ -56,3 +57,11 @@ After:
 ## Changelog
 
 For the changelog, see [Releases](https://github.com/ZimbiX/youtube-fast-fullscreen-toggle/releases)
+
+## Development
+
+To publish a new release:
+
+```
+./scripts/publish <version>
+```
