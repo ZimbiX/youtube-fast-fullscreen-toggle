@@ -25,8 +25,6 @@ Options:
   + Enable the Developer mode setting in the top-right
   + Drag in the file
 
-Note that Firefox doesn't seem to have the same issue as Chrome; so in Firefox the improvement is barely noticeable.
-
 ## Description
 
 There's an annoying lag period when entering/exiting fullscreen on a YouTube video. On my machine, it's normally ~2 seconds; but with a large playlist expanded, it gets up to ~3 seconds. This extension reduces the transition time to almost nothing.
@@ -41,6 +39,10 @@ Unsupported fullscreen transitions (still slow):
 - Double-clicking the video
 - Escape
 - F11
+
+Note that Firefox doesn't seem to have the same issue as Chrome; so in Firefox the improvement is barely noticeable.
+
+In Vivaldi, there is unfortunately an intermediate step in the fullscreen transition, which I can't seem to do anything to avoid. It appears to be due to the toolbars being hidden/shown at a different moment to when the browser actually enters/leaves fullscreen.
 
 Technical detail:
 
