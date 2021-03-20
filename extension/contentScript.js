@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube fast fullscreen toggle
 // @namespace    http://tampermonkey.net/
-// @version      2.3.1
+// @version      2.4.0
 // @description  Avoids the ~3 second lag when entering/exiting fullscreen on a YouTube video - by hiding the heavy fluff while transitioning
 // @author       Brendan Weibrecht
 // @match        https://www.youtube.com/watch*
