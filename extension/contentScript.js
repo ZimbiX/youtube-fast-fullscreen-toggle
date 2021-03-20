@@ -32,20 +32,27 @@
     // Opposite since we will be checking this only after it's changed by YouTube
     const checkIfDirectionIsLeavingFullscreen = () => !isInFullscreen()
 
-    const isFinishedLeavingFullscreen = () => {
-        const video = document.querySelector('ytd-player')
-        return Math.abs(video.clientWidth - window.innerWidth) > 1 &&
-               video.clientHeight != window.innerHeight
-    }
-    const isFinishedEnteringFullscreen = () => {
-        const video = document.querySelector('ytd-player')
-        return Math.abs(video.clientWidth - window.innerWidth) <= 1 &&
-               video.clientHeight == window.innerHeight
+    const playerWidthDiff = (player) => Math.abs(player.clientWidth - window.innerWidth)
+    const playerHeightDiff = (player) => Math.abs(player.clientHeight - window.innerHeight)
+
+    const playerIsFullWidth = (player) => playerWidthDiff(player) <= 2
+    const playerIsFullHeight = (player) => playerHeightDiff(player) <= 2
+
+    const debugPlayerSize = (player) => {
+        console.log('[YT-FFT] w:', player.clientHeight, window.innerHeight, 'h:', player.clientWidth, window.innerWidth)
     }
 
+    const playerIsFullscreen = () => {
+        const player = document.querySelector('ytd-player')
+        debugPlayerSize(player)
+        return playerIsFullHeight(player) && playerIsFullWidth(player)
+    }
+
+    const isFinishedLeavingFullscreen = () => !playerIsFullscreen()
+    const isFinishedEnteringFullscreen = () => playerIsFullscreen()
+
     const transitionIsFinished = (directionIsLeavingFullscreen) => (
-        directionIsLeavingFullscreen && isFinishedLeavingFullscreen() ||
-        !directionIsLeavingFullscreen && isFinishedEnteringFullscreen()
+        directionIsLeavingFullscreen ? isFinishedLeavingFullscreen() : isFinishedEnteringFullscreen()
     )
 
     const timedOut = (startedAt) => new Date() - startedAt >= 2000
