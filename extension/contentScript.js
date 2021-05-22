@@ -4,13 +4,15 @@
 // @version      2.4.0
 // @description  Avoids the ~3 second lag when entering/exiting fullscreen on a YouTube video - by hiding the heavy fluff while transitioning
 // @author       Brendan Weibrecht
-// @match        https://www.youtube.com/watch*
+// @match        https://www.youtube.com/*
 // @downloadURL  https://raw.githubusercontent.com/ZimbiX/youtube-fast-fullscreen-toggle/master/extension/contentScript.js
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    const isWatchVideoPage = () => window.location.pathname == "/watch"
 
     const fluff = ['#secondary-inner', '#info', '#meta', '#comments', '#masthead-container', '#speedyg']
 
@@ -85,17 +87,33 @@
         e.path[0].id == 'contenteditable-root'
     )
 
+    const delegateEvent = (eventName, elementSelector, handler) => {
+        document.addEventListener(eventName, (e) => {
+            // loop parent nodes from the target to the delegation node
+            for (var target = e.target; target && target != this; target = target.parentNode) {
+                if (target.matches && target.matches(elementSelector)) {
+                    handler(target, e)
+                    break
+                }
+            }
+        }, false)
+    }
+
     const addEventListeners = () => {
-        document.querySelector('.ytp-fullscreen-button').addEventListener("click", e => {
-            fastToggleFullScreen()
+        delegateEvent('click', '.ytp-fullscreen-button', e => {
+            if (isWatchVideoPage()) {
+                fastToggleFullScreen()
+            }
         })
 
-        document.querySelector('#player').addEventListener('dblclick', e => {
-            fastToggleFullScreen()
+        delegateEvent('dblclick', '#player', e => {
+            if (isWatchVideoPage()) {
+                fastToggleFullScreen()
+            }
         })
 
         document.addEventListener("keydown", e => {
-            if (e.code == 'KeyF' && !isWritingText(e)) {
+            if (isWatchVideoPage() && e.code == 'KeyF' && !isWritingText(e)) {
                 console.log(e)
                 fastToggleFullScreen()
             }
@@ -103,4 +121,6 @@
     }
 
     addEventListeners()
+
+    console.log(`[YT-FFT] Initialised`)
 })();
