@@ -106,7 +106,7 @@
             }
         })
 
-        delegateEvent('dblclick', '#player', e => {
+        delegateEvent('dblclick', 'video', e => {
             if (isWatchVideoPage()) {
                 fastToggleFullScreen()
             }

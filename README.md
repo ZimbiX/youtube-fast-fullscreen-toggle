@@ -33,10 +33,10 @@ Supported fullscreen transitions:
 
 - Clicking the fullscreen button
 - Pressing the F key
+- Double-clicking the video
 
 Unsupported fullscreen transitions (still slow):
 
-- Double-clicking the video
 - Escape
 - F11
 
