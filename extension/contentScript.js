@@ -5,6 +5,7 @@
 // @description  Avoids the ~3 second lag when entering/exiting fullscreen on a YouTube video - by hiding the heavy fluff while transitioning
 // @author       Brendan Weibrecht
 // @match        https://www.youtube.com/*
+// @icon         https://raw.githubusercontent.com/ZimbiX/youtube-fast-fullscreen-toggle/master/extension/icon-128.png
 // @downloadURL  https://raw.githubusercontent.com/ZimbiX/youtube-fast-fullscreen-toggle/master/extension/contentScript.js
 // @grant        none
 // ==/UserScript==
