@@ -31,6 +31,7 @@ sed -i -E "s=(^  \"version\": \")[0-9.]+(\")=\1${version}\2=" extension/manifest
 
 rm -f extension.crx
 google-chrome-stable --pack-extension=extension --pack-extension-key=youtube-fast-fullscreen-toggle.pem
+mkdir -p releases
 mv extension.crx "releases/youtube-fast-fullscreen-toggle-v${version}.crx"
 
 { info "Zipping extension for Chrome Web Store..."; } 2>/dev/null
