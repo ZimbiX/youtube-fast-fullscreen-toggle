@@ -19,7 +19,11 @@
     const fluff = ['#secondary-inner', '#info', '#meta', '#comments', '#masthead-container', '#speedyg']
 
     const setFluffDisplay = (value) => {
-        fluff.forEach(sel => { document.querySelector(sel).style.display = value })
+        fluff.forEach(selector => {
+            document.querySelectorAll(selector).forEach(el => {
+                el.style.display = value
+            })
+        })
     }
 
     const hideFluff = () => {
