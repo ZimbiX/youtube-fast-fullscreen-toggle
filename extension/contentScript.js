@@ -88,10 +88,13 @@
         }, 10)
     }
 
-    const isWritingText = (e) => (
-        e.path[0].tagName == 'INPUT' ||
-        e.path[0].id == 'contenteditable-root'
-    )
+    const isWritingText = (e) => {
+        const path = e.composedPath()
+        return (
+            path[0].tagName == 'INPUT' ||
+            path[0].id == 'contenteditable-root'
+        )
+    }
 
     const delegateEvent = (eventName, elementSelector, handler) => {
         document.addEventListener(eventName, (e) => {
