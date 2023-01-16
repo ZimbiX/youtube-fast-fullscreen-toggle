@@ -20,7 +20,7 @@ Options:
 - From the [Chrome Web Store](https://chrome.google.com/webstore/detail/dggbkbndbcaknaeobfieifmdcncmpaba) (updates will be delayed a few days due to their review process)
 - Using [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) with the [script](extension/contentScript.js)
 - Manually:
-  + [Download the CRX file](https://github.com/ZimbiX/youtube-fast-fullscreen-toggle/releases/download/v2.7.0/youtube-fast-fullscreen-toggle-v2.7.0.crx)
+  + [Download the CRX file](https://github.com/ZimbiX/youtube-fast-fullscreen-toggle/releases/download/v2.8.0/youtube-fast-fullscreen-toggle-v2.8.0.crx)
   + Browse to `chrome://extensions`
   + Enable the Developer mode setting in the top-right
   + Drag in the file
