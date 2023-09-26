@@ -122,7 +122,7 @@
         })
 
         document.addEventListener("keydown", e => {
-            if (isWatchVideoPage() && e.code == 'KeyF' && !isWritingText(e)) {
+            if (isWatchVideoPage() && !e.ctrlKey && e.code == 'KeyF' && !isWritingText(e)) {
                 console.log(e)
                 fastToggleFullScreen()
             }
