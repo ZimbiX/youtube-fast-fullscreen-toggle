@@ -16,7 +16,18 @@
 
     const isWatchVideoPage = () => window.location.pathname == "/watch"
 
-    const fluff = ['#secondary-inner', '#info', '#meta', '#comments', '#masthead-container', '#speedyg']
+    const fluff = [
+        // Header
+        '#masthead-container',
+
+        // Right column contents
+        '#secondary-inner',
+        '#fixed-secondary',
+
+        // Below video
+        '#below',
+        '#speedyg',
+    ]
 
     const setFluffDisplay = (value) => {
         fluff.forEach(selector => {
